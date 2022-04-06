@@ -6,13 +6,17 @@ import * as serviceWorker from './serviceWorker';
 import {ThemeProvider} from "@material-ui/core/styles";
 import {createTheme} from "@material-ui/core/styles";
 import {CssBaseline} from "@material-ui/core";
+import {AppWithUseReducer} from "./AppWithUseReducer";
+import {AppWithRedux} from "./AppWithRedux";
+import {store} from "./state/storeRedux";
+import {Provider} from "react-redux";
 
 const theme = createTheme({
         palette: {
             primary: {
                 main: '#7c4dff',
             },
-            secondary:{
+            secondary: {
                 main: '#00bfa5',
             },
             /*{
@@ -26,7 +30,9 @@ const theme = createTheme({
 ReactDOM.render(
     <ThemeProvider theme={theme}>
         <CssBaseline/>
-        <App/>
+        <Provider store={store}>
+            <AppWithRedux/>
+        </Provider>
     </ThemeProvider>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
