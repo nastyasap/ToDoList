@@ -10,6 +10,7 @@ import {AppWithUseReducer} from "./AppWithUseReducer";
 import {AppWithRedux} from "./AppWithRedux";
 import {store} from "./state/storeRedux";
 import {Provider} from "react-redux";
+import {AppWithRedux1} from "./AppWithRedux1";
 
 const theme = createTheme({
         palette: {
@@ -31,7 +32,7 @@ ReactDOM.render(
     <ThemeProvider theme={theme}>
         <CssBaseline/>
         <Provider store={store}>
-            <AppWithRedux/>
+            <AppWithRedux1/>
         </Provider>
     </ThemeProvider>, document.getElementById('root'));
 
