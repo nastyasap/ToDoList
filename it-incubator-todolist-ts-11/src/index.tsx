@@ -1,16 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {ThemeProvider} from "@material-ui/core/styles";
 import {createTheme} from "@material-ui/core/styles";
 import {CssBaseline} from "@material-ui/core";
-import {AppWithUseReducer} from "./AppWithUseReducer";
 import {AppWithRedux} from "./AppWithRedux";
 import {store} from "./state/storeRedux";
 import {Provider} from "react-redux";
-import {AppWithRedux1} from "./AppWithRedux1";
 
 const theme = createTheme({
         palette: {
@@ -32,7 +29,7 @@ ReactDOM.render(
     <ThemeProvider theme={theme}>
         <CssBaseline/>
         <Provider store={store}>
-            <AppWithRedux1/>
+            <AppWithRedux/>
         </Provider>
     </ThemeProvider>, document.getElementById('root'));
 
