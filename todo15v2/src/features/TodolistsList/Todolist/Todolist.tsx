@@ -10,7 +10,7 @@ import {fetchTasksTC} from '../tasks-reducer'
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import {Delete} from '@mui/icons-material';
-import {RequestStatusType} from "../app-reducer";
+import {RequestStatusType} from "../../../app/app-reducer";
 
 type PropsType = {
     id: string
@@ -25,14 +25,18 @@ type PropsType = {
     changeTodolistTitle: (id: string, newTitle: string) => void
     filter: FilterValuesType
     entityStatus: RequestStatusType
+    demo?: boolean
 
 }
 
-export const Todolist = React.memo(function (props: PropsType) {
+export const Todolist = React.memo(function ({demo = false, ...props}: PropsType) {
     console.log('Todolist called')
 
     const dispatch = useDispatch()
     useEffect(() => {
+        if(demo) {
+            return
+        }
         const thunk = fetchTasksTC(props.id)
         dispatch(thunk)
     }, [])
@@ -63,7 +67,8 @@ export const Todolist = React.memo(function (props: PropsType) {
     }
 
     return <div>
-        <h3><EditableSpan value={props.title} onChange={changeTodolistTitle}/>
+        <h3><EditableSpan value={props.title} onChange={changeTodolistTitle}
+                          disabled={props.entityStatus === 'loading'}/>
             <IconButton disabled={props.entityStatus === 'loading'} onClick={removeTodolist}>
                 <Delete/>
             </IconButton>
