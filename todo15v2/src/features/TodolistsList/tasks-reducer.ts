@@ -1,4 +1,9 @@
-import {AddTodolistActionType, RemoveTodolistActionType, SetTodolistsActionType} from './todolists-reducer'
+import {
+    AddTodolistActionType,
+    ClearDataLogoutActionType,
+    RemoveTodolistActionType,
+    SetTodolistsActionType
+} from './todolists-reducer'
 import {TaskPriorities, TaskStatuses, TaskType, todolistsAPI, UpdateTaskModelType} from '../../api/todolists-api'
 import {Dispatch} from 'redux'
 import {AppRootStateType} from '../../app/store'
@@ -38,7 +43,13 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
         case 'TASK/CHANGE-ENTITY-STATUS':
             return {
                 ...state,
-                [action.todoId]: state[action.todoId].map(t => t.id === action.taskId ? {...t, entityStatus: action.status} : t)}
+                [action.todoId]: state[action.todoId].map(t => t.id === action.taskId ? {
+                    ...t,
+                    entityStatus: action.status
+                } : t)
+            }
+        case "CLEAR-DATA":
+            return {}
         default:
             return state
     }
@@ -168,3 +179,4 @@ type ActionsType =
     | ReturnType<typeof setTasksAC>
     | AppActionsType
     | ReturnType<typeof changeTaskEntityStatusAC>
+    | ClearDataLogoutActionType

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useCallback, useEffect} from 'react'
 import './App.css'
 import {TodolistsList} from '../features/TodolistsList/TodolistsList'
 
@@ -19,6 +19,8 @@ import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
 import {Routes, Route, Navigate} from 'react-router-dom';
 import {Login} from "../features/login/Login";
 import {useDispatch} from "react-redux";
+import {CircularProgress} from "@mui/material";
+import {logoutTC} from "../features/login/auth-reducer";
 
 
 type PropsType = {
@@ -27,12 +29,25 @@ type PropsType = {
 
 function App({demo = false}: PropsType) {
     const status = useAppSelector<RequestStatusType>(state => state.app.status)
+    const isInitialized = useAppSelector<boolean>(state => state.app.isInitialized)
+    const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn)
     const dispatch = useDispatch()
 
     useEffect(() => {
+        debugger
         dispatch(initializeAppTC())
     }, [])
 
+    const logoutHandler = useCallback(() => {
+        dispatch(logoutTC())
+    }, [dispatch])
+
+    if (!isInitialized) {
+        return <div
+            style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
+            <CircularProgress/>
+        </div>
+    }
     return (
         <div className="App">
             <AppBar position="static">
@@ -43,7 +58,7 @@ function App({demo = false}: PropsType) {
                     <Typography variant="h6">
                         News
                     </Typography>
-                    <Button color="inherit">Login</Button>
+                    {isLoggedIn && <Button onClick={logoutHandler} color="inherit">Log out</Button>}
                 </Toolbar>
             </AppBar>
             {status === 'loading' && <LinearProgress color="secondary"/>}
