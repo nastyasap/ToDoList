@@ -3,11 +3,11 @@ import {Dispatch} from "redux";
 import {ResponseType} from "../api/todolists-api";
 
 export const handleServerNetworkError = (dispatch: Dispatch<AppActionsType>, message: string) => {
-    dispatch(setAppErrorAC(message))
-    dispatch(setAppStatusAC("failed"))
+    dispatch(setAppErrorAC({error: message}))
+    dispatch(setAppStatusAC({status: "failed"}))
 }
 
 export const handleServerAppError = <T>(dispatch: Dispatch, data: ResponseType<T>) => {
-    dispatch(setAppErrorAC(data.messages.length ? data.messages[0] : 'Some error occurred'))
-    dispatch(setAppStatusAC('failed'))
+    dispatch(setAppErrorAC(data.messages.length ? {error: data.messages[0]} : {error: 'Some error occurred'}))
+    dispatch(setAppStatusAC({status: 'failed'}))
 }

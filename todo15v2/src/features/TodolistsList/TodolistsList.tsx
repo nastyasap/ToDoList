@@ -20,7 +20,7 @@ import {useAppSelector} from "../../app/store";
 import {Navigate} from "react-router-dom";
 
 type PropsType = {
-    demo ?: boolean
+    demo?: boolean
 }
 
 export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
@@ -60,7 +60,7 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
     }, [])
 
     const changeFilter = useCallback(function (value: FilterValuesType, todolistId: string) {
-        const action = changeTodolistFilterAC(todolistId, value)
+        const action = changeTodolistFilterAC({id: todolistId, filter: value})
         dispatch(action)
     }, [])
 
@@ -80,9 +80,9 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
     }, [dispatch])
 
 
-    if(!isLoggedIn){
-        debugger
-        return <Navigate to={'/login'}/>}
+    if (!isLoggedIn) {
+        return <Navigate to={'/login'}/>
+    }
     return <>
         <Grid container style={{padding: '20px'}}>
             <AddItemForm addItem={addTodolist}/>
