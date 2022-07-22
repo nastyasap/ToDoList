@@ -7,15 +7,14 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
-const initialState = {
-    status: 'loading' as RequestStatusType,
-    error: null as string | null,
-    isInitialized: false
-}
 
 const slice = createSlice({
     name: 'app',
-    initialState: initialState,
+    initialState: {
+        status: 'loading' as RequestStatusType,
+        error: null as string | null,
+        isInitialized: false
+    },
     reducers: {
         setAppStatusAC (state, action: PayloadAction<{status: RequestStatusType}>) {
             state.status = action.payload.status
@@ -43,7 +42,7 @@ export const initializeAppTC = () => (dispatch: Dispatch) => {
     authAPI.me()
         .then(res => {
             if (res.data.resultCode === 0) {
-                dispatch(setIsLoggedInAC({value: true}));
+                dispatch(setIsLoggedInAC({isLoggedIn: true}));
             } else {
                 handleServerAppError(dispatch, res.data)
             }

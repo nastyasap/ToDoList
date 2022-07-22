@@ -4,9 +4,43 @@ import {RequestStatusType, setAppStatusAC} from "../../app/app-reducer";
 import {AxiosError} from "axios";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
 import {fetchTasksTC} from "./tasks-reducer";
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 const initialState: Array<TodolistDomainType> = []
+
+// export const fetchTodolistsTC = createAsyncThunk('todolists/fetchTodolistsTC', (thunkAPI) => {
+//     thunkAPI.dispatch(setAppStatusAC({status: 'loading'}))
+//     const res = await todolistsAPI.getTodolists()
+//         .then((res) => {
+//             thunkAPI.dispatch(setTodolistsAC({todolists: res.data}))
+//             thunkAPI.dispatch(setAppStatusAC({status: 'succeeded'}))
+//             return res.data
+//         })
+//         .then(todos => {
+//             todos.forEach(tl => thunkAPI.dispatch(fetchTasksTC(tl.id)))
+//         })
+//         .catch((error: AxiosError) => {
+//             handleServerNetworkError(thunkAPI.dispatch, error.message)
+//         })
+// })
+
+export const fetchTodolistsTC = () => {
+    return (dispatch: any) => {
+        dispatch(setAppStatusAC({status: 'loading'}))
+        todolistsAPI.getTodolists()
+            .then((res) => {
+                dispatch(setTodolistsAC({todolists: res.data}))
+                dispatch(setAppStatusAC({status: 'succeeded'}))
+                return res.data
+            })
+            .then(todos => {
+                todos.forEach(tl => dispatch(fetchTasksTC(tl.id)))
+            })
+            .catch((error: AxiosError) => {
+                handleServerNetworkError(dispatch, error.message)
+            })
+    }
+}
 
 const slice = createSlice({
     name: 'todolists',
@@ -74,23 +108,7 @@ export const {
 // }
 
 // thunks
-export const fetchTodolistsTC = () => {
-    return (dispatch: any) => {
-        dispatch(setAppStatusAC({status: 'loading'}))
-        todolistsAPI.getTodolists()
-            .then((res) => {
-                dispatch(setTodolistsAC({todolists: res.data}))
-                dispatch(setAppStatusAC({status: 'succeeded'}))
-                return res.data
-            })
-            .then(todos => {
-                todos.forEach(tl => dispatch(fetchTasksTC(tl.id)))
-            })
-            .catch((error: AxiosError) => {
-                handleServerNetworkError(dispatch, error.message)
-            })
-    }
-}
+
 export const removeTodolistTC = (todolistId: string) => {
     return (dispatch: Dispatch) => {
         dispatch(setAppStatusAC({status: 'loading'}))
