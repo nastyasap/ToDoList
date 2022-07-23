@@ -1,4 +1,3 @@
-import {Dispatch} from 'redux'
 import {setAppStatusAC} from '../../app/app-reducer'
 import {authAPI, FieldErrorType, LoginParamsType} from "../../api/todolists-api";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
@@ -59,10 +58,10 @@ const slice = createSlice({
     extraReducers: builder => {
         builder.addCase(loginTC.fulfilled, (state) => {
             state.isLoggedIn = true
-        }),
-            builder.addCase(logoutTC.fulfilled, (state) => {
-                state.isLoggedIn = false
-            })
+        });
+        builder.addCase(logoutTC.fulfilled, (state) => {
+            state.isLoggedIn = false
+        })
     }
 })
 

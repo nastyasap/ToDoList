@@ -44,14 +44,13 @@ export const Login = () => {
         },
         onSubmit: async (values, formikHelpers) => {
             const action = await dispatch(loginTC(values))
-            if(loginTC.rejected.match(action)) {
-                if(action.payload?.fieldsErrors) {
+            if (loginTC.rejected.match(action)) {
+                if (action.payload?.fieldsErrors) {
                     const error = action.payload.fieldsErrors[0]
                     formikHelpers.setFieldError(error.field, error.error)
                 }
             }
-            debugger
-            // formik.resetForm();
+            formik.resetForm();
         },
     })
 
