@@ -12,11 +12,12 @@ import LinearProgress from "@mui/material/LinearProgress";
 import {useAppSelector} from "./store";
 import {initializeAppTC, RequestStatusType} from "./app-reducer";
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
-import {Routes, Route, Navigate} from 'react-router-dom';
+import {Navigate, Route, Routes} from 'react-router-dom';
 import {Login} from "../features/login/Login";
 import {useDispatch} from "react-redux";
 import {CircularProgress} from "@mui/material";
 import {logoutTC} from "../features/login/auth-reducer";
+import {selectIsInitialized, selectStatus} from './selectors';
 
 
 type PropsType = {
@@ -24,8 +25,8 @@ type PropsType = {
 }
 
 function App({demo = false}: PropsType) {
-    const status = useAppSelector<RequestStatusType>(state => state.app.status)
-    const isInitialized = useAppSelector<boolean>(state => state.app.isInitialized)
+    const status = useAppSelector<RequestStatusType>(selectStatus)
+    const isInitialized = useAppSelector<boolean>(selectIsInitialized)
     const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn)
     const dispatch = useDispatch()
 
