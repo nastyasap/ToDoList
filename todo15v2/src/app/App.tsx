@@ -18,6 +18,7 @@ import {useDispatch} from "react-redux";
 import {CircularProgress} from "@mui/material";
 import {logoutTC} from "../features/login/auth-reducer";
 import {selectIsInitialized, selectStatus} from './selectors';
+import {authSelectors} from "../features/login";
 
 
 type PropsType = {
@@ -27,7 +28,7 @@ type PropsType = {
 function App({demo = false}: PropsType) {
     const status = useAppSelector<RequestStatusType>(selectStatus)
     const isInitialized = useAppSelector<boolean>(selectIsInitialized)
-    const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn)
+    const isLoggedIn = useAppSelector<boolean>(authSelectors.selectIsLoggedIn)
     const dispatch = useDispatch()
 
     useEffect(() => {

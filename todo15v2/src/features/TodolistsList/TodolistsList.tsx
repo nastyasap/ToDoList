@@ -18,6 +18,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import {useAppSelector} from "../../app/store";
 import {Navigate} from "react-router-dom";
+import {authSelectors} from "../login";
 
 type PropsType = {
     demo?: boolean
@@ -27,7 +28,7 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
 
     const todolists = useAppSelector<Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useAppSelector<TasksStateType>(state => state.tasks)
-    const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn)
+    const isLoggedIn = useAppSelector<boolean>(authSelectors.selectIsLoggedIn)
 
     const dispatch = useDispatch()
 
