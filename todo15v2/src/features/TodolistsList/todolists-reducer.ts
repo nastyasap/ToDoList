@@ -2,7 +2,7 @@ import {todolistsAPI, TodolistType} from '../../api/todolists-api'
 import {RequestStatusType, setAppStatusAC} from "../../app/app-reducer";
 import {AxiosError} from "axios";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
-import {fetchTasksTC} from "./tasks-reducer";
+import {fetchTasksTC} from "./Todolist/Task/tasks-reducer";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 // thunks

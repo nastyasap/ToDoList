@@ -5,7 +5,7 @@ import {
     tasksReducer,
     TasksStateType,
     updateTaskTC
-} from './tasks-reducer'
+} from './Todolist/Task/tasks-reducer'
 import {addTodolistTC, fetchTodolistsTC, removeTodolistTC} from './todolists-reducer'
 import {TaskPriorities, TaskStatuses} from '../../api/todolists-api'
 import {RequestStatusType} from "../../app/app-reducer";

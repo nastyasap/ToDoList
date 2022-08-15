@@ -9,7 +9,7 @@ import {
     removeTodolistTC,
     TodolistDomainType
 } from './todolists-reducer'
-import {addTaskTC, removeTaskTC, TasksStateType, updateTaskTC} from './tasks-reducer'
+import {addTaskTC, removeTaskTC, TasksStateType, updateTaskTC} from './Todolist/Task/tasks-reducer'
 import {TaskStatuses} from '../../api/todolists-api'
 import {AddItemForm} from '../../components/AddItemForm/AddItemForm'
 import {Todolist} from './Todolist/Todolist'
@@ -19,6 +19,8 @@ import Paper from '@mui/material/Paper';
 import {useAppSelector} from "../../app/store";
 import {Navigate} from "react-router-dom";
 import {authSelectors} from "../login";
+import {todolistSelectors} from "./index";
+import {taskSelectors} from "./Todolist/Task";
 
 type PropsType = {
     demo?: boolean
@@ -26,8 +28,8 @@ type PropsType = {
 
 export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
 
-    const todolists = useAppSelector<Array<TodolistDomainType>>(state => state.todolists)
-    const tasks = useAppSelector<TasksStateType>(state => state.tasks)
+    const todolists = useAppSelector<Array<TodolistDomainType>>(todolistSelectors.selectTodolists)
+    const tasks = useAppSelector<TasksStateType>(taskSelectors.selectTasks)
     const isLoggedIn = useAppSelector<boolean>(authSelectors.selectIsLoggedIn)
 
     const dispatch = useDispatch()

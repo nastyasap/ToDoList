@@ -3,13 +3,13 @@ import {
     clearDataLogoutAC,
     fetchTodolistsTC,
     removeTodolistTC
-} from './todolists-reducer'
-import {TaskPriorities, TaskStatuses, TaskType, todolistsAPI, UpdateTaskModelType} from '../../api/todolists-api'
-import {RequestStatusType, setAppStatusAC} from "../../app/app-reducer";
+} from '../../todolists-reducer'
+import {TaskPriorities, TaskStatuses, TaskType, todolistsAPI, UpdateTaskModelType} from '../../../../api/todolists-api'
+import {RequestStatusType, setAppStatusAC} from "../../../../app/app-reducer";
 import {AxiosError} from "axios";
-import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
+import {handleServerAppError, handleServerNetworkError} from "../../../../utils/error-utils";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {AppRootStateType} from "../../app/store";
+import {AppRootStateType} from "../../../../app/store";
 
 const initialState: TasksStateType = {}
 
